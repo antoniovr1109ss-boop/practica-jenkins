@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'built-in' }
 
     environment {
         ROOT_PASSWORD = credentials('mariadb-secret-key')
