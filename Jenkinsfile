@@ -1,22 +1,15 @@
 pipeline {
     agent any
-
-    environment {
-        // Vinculamos el ID correcto de tus credenciales de Jenkins
-        ROOT_PASSWORD = credentials('mariadb-secret-key')
-    }
-
     stages {
-        stage('Limpieza') {
+        stage('Despliegue') {
             steps {
-                echo 'Limpiando contenedores antiguos...'
-                sh 'docker compose down --remove-orphans || true'
-            }
-        }
-        stage('Despliegue seguro') {
-            steps {
-                echo 'Levantando la nueva infraestructura con Docker Compose...'
-                sh 'docker compose up -d --build'
+                withCredentials([string(credentialsId: 'mariadb-secret-key', variable: 'DB_PASS')]) {
+                    sh '''
+                        echo "ROOT_PASSWORD=$DB_PASS" > .env
+                        docker compose down -v
+                        docker compose up -d --build
+                    '''
+                }
             }
         }
     }
