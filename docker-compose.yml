@@ -3,6 +3,7 @@ services:
     image: mariadb:latest
     environment:
       MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD}
+    mem_limit: 512m
     restart: always
 
   web:
@@ -11,5 +12,7 @@ services:
       - "8058:80"
     environment:
       ROOT_PASSWORD: ${ROOT_PASSWORD}
+    security_opt:
+      - no-new-privileges:true
     depends_on:
       - db
