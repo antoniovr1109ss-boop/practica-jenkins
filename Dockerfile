@@ -13,3 +13,4 @@ RUN chown -R avilrod1109:avilrod1109 /var/www/html
 # Le decimos a Apache que sus procesos de trabajo se ejecuten con tu usuario
 ENV APACHE_RUN_USER=avilrod1109
 ENV APACHE_RUN_GROUP=avilrod1109
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
