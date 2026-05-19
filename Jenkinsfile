@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        ROOT_PASSWORD = credentials('<id-secret-key>')
+        ROOT_PASSWORD = credentials('mariadb-secret-key')
     }
     stages {
         stage('Limpieza') {
