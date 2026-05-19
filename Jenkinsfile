@@ -1,15 +1,17 @@
 pipeline {
     agent any
+    environment {
+        ROOT_PASSWORD = credentials('<id-secret-key>')
+    }
     stages {
-        stage('Despliegue') {
+        stage('Limpieza') {
             steps {
-                withCredentials([string(credentialsId: 'mariadb-secret-key', variable: 'DB_PASS')]) {
-                    sh '''
-                        echo "ROOT_PASSWORD=$DB_PASS" > .env
-                        docker compose down -v
-                        docker compose up -d --build
-                    '''
-                }
+                sh 'docker compose down --remove-orphans'
+            }
+        }
+        stage('Despliegue seguro') {
+            steps {
+                sh 'docker compose up --build -d'
             }
         }
     }
