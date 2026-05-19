@@ -9,8 +9,16 @@ RUN useradd -m -s /bin/bash avilrod1109
 # Traspasamos la propiedad de la carpeta web
 RUN chown -R avilrod1109:avilrod1109 /var/www/html
 
-# FORMA CORRECTA DE HARDENING EN APACHE:
-# Le decimos a Apache que sus procesos de trabajo se ejecuten con tu usuario
+# Copiamos el index.php
+COPY index.php /var/www/html/
+
+# Damos permisos de lectura al archivo
+RUN chmod 644 /var/www/html/index.php
+
+# Forma correcta de hardening en Apache
 ENV APACHE_RUN_USER=avilrod1109
 ENV APACHE_RUN_GROUP=avilrod1109
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# El proceso no debe ejecutarse como root
+USER avilrod1109
