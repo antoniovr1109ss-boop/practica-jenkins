@@ -1,7 +1,5 @@
 <?php
 $pass = getenv('ROOT_PASSWORD');
-echo "La contraseña que lee PHP es: [" . $pass . "]<br>"; // Debug temporal
-
 $host = 'db';
 $user = 'root';
 $dbname = 'mysql';
