@@ -2,22 +2,22 @@ version: '3.8'
 
 services:
   db:
-    [cite_start]image: mariadb:latest [cite: 182]
+    image: mariadb:latest
     environment:
-      [cite_start]MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD} [cite: 184]
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD}
     deploy:
       resources:
         limits:
-          [cite_start]memory: 512M [cite: 185]
-    # Cumplimos Hardening: NO añadimos la sección "ports" para que no sea accesible desde fuera [cite: 183]
+          memory: 512M
+    # Cumplimos Hardening: NO añadimos la sección "ports" para que no sea accesible desde fuera
 
   web:
-    [cite_start]build: . [cite: 187]
+    build: .
     ports:
-      - [cite_start]"8058:80"
+      - "8058:80"
     environment:
-      [cite_start]ROOT_PASSWORD: ${ROOT_PASSWORD} [cite: 189]
+      ROOT_PASSWORD: ${ROOT_PASSWORD}
     security_opt:
-      - [cite_start]no-new-privileges:true # Evita escaladas de privilegios si el contenedor se ve comprometido [cite: 189]
+      - no-new-privileges:true # Evita escaladas de privilegios si el contenedor se ve comprometido
     depends_on:
       - db
