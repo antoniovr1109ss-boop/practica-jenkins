@@ -9,6 +9,6 @@ $conn = @new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     echo "Error de conexión: " . $conn->connect_error;
 } else {
-    echo "Conexión exitosa.";
+    echo "Conexión exitosa. Antonio Villegas Rodríguez.";
 }
 ?>
